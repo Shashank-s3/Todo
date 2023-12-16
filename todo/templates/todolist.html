@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Todolist</title>
+{% endblock title %}
+
+{% block content %}
+<div class = "container">
+  <h1>Welcome to Todolist</h1>
+  <br>
+  </div>
+  {% for message in messages %}
+    <div class="alert alert-danger alert alert-warning alert-dismissible fade show" role="alert">
+      {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+  <form method = "POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="text" class="form-control" name="taskname" placeholder = "Enter Task Name" >
+    </div>
+    <button type="submit" class="btn btn-primary">Add task</button>
+    
+  </form>
+  <br>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col" class="table-dark">Task Name</th>
+        <th scope="col" class="table-dark">Status</th>
+        <th scope="col" class="table-dark">Edit</th>
+        <th scope="col" class="table-dark">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tasks in all_tasks %}
+        <tr>
+          
+          {% if tasks.done == True %}
+          <td class="table-info">{{tasks.taskname}} | {{tasks.id}}</td>
+          <td class="table-info">Completed</td>
+          <td class="table-info">Edit</td>
+          <td class="table-info"><a href="{% url 'delete_task' tasks.id %}">Delete</td>
+          {% else %}
+          <td>{{tasks.taskname}} | {{tasks.id}}</td>
+          <td>Yet to complete</td>
+          <td>Edit</td>
+          <td><a href="{% url 'delete_task' tasks.id %}">Delete</td>
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content%}
