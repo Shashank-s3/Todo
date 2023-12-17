@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Edit - Task</title>
+{% endblock title %}
+
+{% block content %}
+<div>
+    <form method = "POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <input type="text" class="form-control" name=taskname placeholder = {{task_obj.taskname}} value = {{task_obj.taskname}}>
+          <input type="hidden" name=done value = {{task_obj.done}}>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Task</button>
+        
+      </form>
+</div>
+{% endblock content%}
