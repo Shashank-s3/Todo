@@ -19,8 +19,8 @@ SECRET_KEY = 'django-insecure-0%t!-0yuk@%@u6m95ve(e^!eln%!v55jx!=+^4o+(*6q2tv6a$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "taskmate.up.railway.app"]
-CSRF_TRUSTED_ORIGINS = ['https://taskmate.up.railway.app']
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://todolist-com-jva3.onrender.com']
 
 # Application definition
 
