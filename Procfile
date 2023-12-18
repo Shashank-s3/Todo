@@ -1,1 +1,1 @@
-web: python manage.py makemigrations && python manage.py migrate && gunicorn travello.wsgi:app
+web: python manage.py makemigrations && python manage.py migrate && gunicorn travello.wsgi

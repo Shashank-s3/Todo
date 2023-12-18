@@ -14,11 +14,13 @@ def todolist(request):
     if request.method == "POST":
         form = TaskForm(request.POST or None)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            instance.manage = request.user
+            instance.save()
             messages.success(request,("New Task Added!!"))
         return redirect('todolist')
     else:
-        all_tasks = todo.objects.all()
+        all_tasks = todo.objects.filter(manage=request.user)
         paginator = Paginator(all_tasks, 7)
         page = request.GET.get('pg')
         all_tasks = paginator.get_page(page)
@@ -26,15 +28,23 @@ def todolist(request):
 
 @login_required
 def delate_task(request, task_id):
-    task = todo.objects.get(pk = task_id)
-    task.delete()
+    task = todo.objects.get(pk=task_id)
+    if task.manage == request.user:
+        task.delete()
+    else:
+       messages.error(request,("Access Restricted, You Are Not Allowed."))
     return redirect('todolist')
+
 
 @login_required
 def complete_task(request, task_id):
-    task = todo.objects.get(pk = task_id)
-    task.done = True
-    task.save()
+    task = todo.objects.get(pk=task_id)
+    if task.manage == request.user:
+        task.done = True
+        task.save()
+    else:
+       messages.error(request,("Access Restricted, You Are Not Allowed.")) 
+
     return redirect('todolist')
 
 @login_required

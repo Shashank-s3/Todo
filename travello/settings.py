@@ -79,28 +79,28 @@ WSGI_APPLICATION = "travello.wsgi.application"
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': env("DJANGO_DB_NAME"),
-#         'USER': env("DJANGO_DB_USER"),
-#         'PASSWORD': env("DJANGO_DB_PASSWORD"),
-#         'HOST': env("DJANGO_DB_HOST"),
-#         'PORT': env("DJANGO_DB_PORT"),
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'Shashi@1208',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': env('DJANGO_DB_NAME'),
+        'USER': env('DJANGO_DB_USER'),
+        'PASSWORD': env('DJANGO_DB_PASSWORD'),
+        'HOST': env('DJANGO_DB_HOST'),
+        'PORT': env('DJANGO_DB_HOST_PORT'),
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'postgres',
+#         'USER': 'postgres',
+#         'PASSWORD': 'Shashi@1208',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
