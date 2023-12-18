@@ -1,1 +1,1 @@
-web: python manage.py makemigrations && python manage.py migrate && gunicorn --env DJANGO_SETTINGS_MODULE=travello.settings travello.wsgi
+web: python manage.py makemigrations && python manage.py migrate && gunicorn travello.wsgi:app
