@@ -6,8 +6,12 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import smtplib
+import environ 
 from email.mime.text import MIMEText
 # Create your views here.
+
+env = environ.Env()
+environ.Env.read_env()
 
 def index(request):
     return render(request, "index.html", {"name" : "Gana"})
@@ -80,7 +84,8 @@ def contact(request):
         body = name + email +request.POST['message']
         msg['From'] = "sirigiripetshashank3@gmail.com"
         msg['To'] = "sirigiripetshashank3@gmail.com"
-        password = "dhmw uska rvoy iymv"
+        password = env('GMAIL_PASSWORD')
+        # "dhmw uska rvoy iymv"
         msg = MIMEText(body)
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
             smtp_server.login("sirigiripetshashank3@gmail.com", password)
