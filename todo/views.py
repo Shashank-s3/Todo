@@ -5,6 +5,8 @@ from todo.form import TaskForm
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+import smtplib
+from email.mime.text import MIMEText
 # Create your views here.
 
 def index(request):
@@ -72,14 +74,18 @@ def contact(request):
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
-        subject = request.POST['subject']
-        message = request.POST['message']
-        file_path = 'log.txt'
-        file = open(file_path, 'a')
-        string_to_append = name + ', ' + email + ', ' + subject + ', ' + message + ';' 
-        file.write(string_to_append)
-        file.close()
-        # message.success(request, ("Your message recorded"))
+        body = name +"/n"+ email
+        msg = MIMEText(body)
+        msg['Subject'] = request.POST['subject']
+        body = name + email +request.POST['message']
+        msg['From'] = "sirigiripetshashank3@gmail.com"
+        msg['To'] = "sirigiripetshashank3@gmail.com"
+        password = "dhmw uska rvoy iymv"
+        msg = MIMEText(body)
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
+            smtp_server.login("sirigiripetshashank3@gmail.com", password)
+            smtp_server.sendmail("sirigiripetshashank3@gmail.com", "sirigiripetshashank3@gmail.com", msg.as_string())
+            print('email sent')
         return redirect('login')
     else:
         return render(request, "contact.html", {"name" : "contact"})
