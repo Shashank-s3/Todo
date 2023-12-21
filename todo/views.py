@@ -69,4 +69,17 @@ def edit_task(request, task_id):
         return render(request, 'edit.html', {"task_obj":task_obj})
 
 def contact(request):
-    return render(request, "contact.html", {"name" : "contact"})
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+        file_path = 'log.txt'
+        file = open(file_path, 'a')
+        string_to_append = name + ', ' + email + ', ' + subject + ', ' + message + ';' 
+        file.write(string_to_append)
+        file.close()
+        # message.success(request, ("Your message recorded"))
+        return redirect('login')
+    else:
+        return render(request, "contact.html", {"name" : "contact"})
